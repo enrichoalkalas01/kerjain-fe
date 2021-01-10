@@ -189,7 +189,7 @@
 					`<div class="job-listing wtabs">
 						<div class="job-title-sec">
 							<div class="c-logo" style="padding-right: 25px; width: 15%;"> <img src="`+ dataJobs.data[i].logo +`" alt="" /> </div>
-							<h3><a href="detail-pekerjaan.php/`+ dataJobs.data[i].id +`" title="">`+ dataJobs.data[i].title +`</a></h3>
+							<h3><a href="/kerjain-fe/detail-pekerjaan?=`+ dataJobs.data[i].id +`" title="">`+ dataJobs.data[i].title +`</a></h3>
 							<span>`+ dataJobs.data[i].excerpt +`</span>
 							<div class="job-lctn"><i class="la la-map-marker"></i>`+ dataJobs.data[i].location +`</div>
 						</div>
@@ -204,14 +204,19 @@
 
 			$('#pagination-list').html(`
 				<ul>
-					<li class="prev"><a><i class="la la-long-arrow-left"></i>Sebelumnya</a></li>
+					<li class="prev page"><a><i class="la la-long-arrow-left"></i>Sebelumnya</a></li>
 					<li class="link-number active"><a>`+ dataJobs.current_page +`</a></li>
-					<li class="next"><a>Selanjutnya <i class="la la-long-arrow-right"></i></a></li>
+					<li class="next page"><a>Selanjutnya <i class="la la-long-arrow-right"></i></a></li>
 				</ul>
 			`)
 
-			//<li class="link-number"><a>`+2+`</a></li>
-			//<li class="link-number"><a>`+3+`</a></li>
+			if ( dataJobs.next_page_url == null ) {
+				$('.next.page').css({ pointerEvents: 'none', cursor: 'not-allowed !important' })
+			} else if ( dataJobs.prev_page_url == null ) {
+				$('.prev.page').css({ pointerEvents: 'none', cursor: 'not-allowed !important' })
+			} else {
+
+			}
 
 			$('.prev').on('click', function() {
 				console.log('prev clicked')
@@ -250,5 +255,4 @@
 	// 		<i>5 bulan yang lalu</i>
 	// 	</div>
 	// </div>`
-
 </script>

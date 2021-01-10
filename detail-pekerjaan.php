@@ -155,3 +155,44 @@
 	</section>
 
 <?php include 'php/footer.php'; ?>
+
+<script type="text/javascript">
+	
+</script>
+<script type="text/javascript">
+	var res = window.location.href;
+	let id = res.split('http://localhost/kerjain-fe/detail-pekerjaan?=');
+	// Call Ajax
+	var ajax = new XMLHttpRequest();
+	var method = "GET";
+	var url = "http://febrianti-laravel.herokuapp.com/jobs-detail/1";// + id[1];
+	var asynchronous = true;
+
+	ajax.open(method, url, asynchronous);
+	
+	// Sending ajax request
+	ajax.send();	
+
+	// Receiving response from data.php
+	ajax.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			// Converting JSON back to array
+			var dataJobs = JSON.parse(this.responseText);
+			console.log(dataJobs); // For Debugging
+		}
+	};
+
+	// `<div class="job-listing wtabs">
+	// 	<div class="job-title-sec">
+	// 		<div class="c-logo"> <img src="images/resource/l1.png" alt="" /> </div>
+	// 		<h3><a href="detail-pekerjaan.php" title="">Web Designer / Developer</a></h3>
+	// 		<span>Massimo Artemisis</span>
+	// 		<div class="job-lctn"><i class="la la-map-marker"></i>Jakarta</div>
+	// 	</div>
+	// 	<div class="job-style-bx">
+	// 		<span class="job-is ft">Full time</span>
+	// 		<span class="fav-job"><i class="la la-heart-o"></i></span>
+	// 		<i>5 bulan yang lalu</i>
+	// 	</div>
+	// </div>`
+</script>
