@@ -76,18 +76,7 @@
                     <a href="index.php" title=""><img src="images/resource/logo.png" alt="" /></a>
                 </div><!-- Logo -->
                 <div class="btns-profiles-sec">
-                    <span><img src="images/resource/profile.jpg" alt="" /> Tera Planer <i class="la la-angle-down"></i></span>
-                    <ul>
-                        <li><a href="employer_profile.html" title=""><i class="la la-file-text"></i>Profil Perusahaan</a></li>
-                        <li><a href="employer_manage_jobs.html" title=""><i class="la la-briefcase"></i>Kelola Pekerjaan</a></li>
-                        <li><a href="employer_transactions.html" title=""><i class="la la-money"></i>Transaksi</a></li>
-                        <li><a href="employer_resume.html" title=""><i class="la la-paper-plane"></i>Resume</a></li>
-                        <li><a href="employer_packages.html" title=""><i class="la la-user"></i>Paket</a></li>
-                        <li><a href="employer_post_new.html" title=""><i class="la la-file-text"></i>Posting Pekerjaan Baru</a></li>
-                        <li><a href="employer_job_alert.html" title=""><i class="la la-flash"></i>Notifikasi Pekerjaan</a></li>
-                        <li><a href="employer_change_password.html" title=""><i class="la la-lock"></i>Ubah Password</a></li>
-                        <li><a href="#" title=""><i class="la la-unlink"></i>Keluar</a></li>
-                    </ul>
+                    
                 </div>
                 <nav>
                     

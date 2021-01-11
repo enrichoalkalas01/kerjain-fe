@@ -90,20 +90,20 @@
             <span>Candidate</span>
             <span>Employer</span>
         </div>
-        <form action="pelamar-dashboard.php">
+        <form>
             <div class="cfield">
-                <input type="text" placeholder="Username" />
+                <input type="text" placeholder="Username" id="username-value"/>
                 <i class="la la-user"></i>
             </div>
             <div class="cfield">
-                <input type="password" placeholder="********" />
+                <input type="password" placeholder="********" id="password-value" />
                 <i class="la la-key"></i>
             </div>
             <p class="remember-label">
                 <input type="checkbox" name="cb" id="cb1"><label for="cb1">Remember me</label>
             </p>
             <a href="#" title="">Forgot Password?</a>
-            <button type="submit">Login</button>
+            <button type="button" id="login-button">Login</button>
         </form>
         <div class="extra-login">
             <span>Or</span>
@@ -136,14 +136,14 @@
                 <input type="text" placeholder="Email" />
                 <i class="la la-envelope-o"></i>
             </div>
-            <div class="dropdown-field">
+            <!-- <div class="dropdown-field">
                 <select data-placeholder="Please Select Specialism" class="chosen">
                     <option>Web Development</option>
                     <option>Web Designing</option>
                     <option>Art & Culture</option>
                     <option>Reading & Writing</option>
                 </select>
-            </div>
+            </div> -->
             <div class="cfield">
                 <input type="text" placeholder="Phone Number" />
                 <i class="la la-phone"></i>
@@ -169,6 +169,91 @@
 <script src="js/parallax.js" type="text/javascript"></script>
 <script src="js/select-chosen.js" type="text/javascript"></script>
 <script src="http://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+    function getData(username, password) {
+        // Call Ajax
+        var ajax = new XMLHttpRequest();
+        var method = "GET";
+        var url = "http://febrianti-laravel.herokuapp.com/profile-login/"+ username +'/'+ password;
+        var asynchronous = true;
+
+        ajax.open(method, url, asynchronous);
+        
+        // Sending ajax request
+        ajax.send();    
+
+        // Receiving response from data.php
+        ajax.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                // Converting JSON back to array
+                var dataProfile = JSON.parse(this.responseText);
+                console.log(dataProfile); // For Debugging
+
+                let valueCookie = JSON.stringify({
+                    LoginState: true,
+                    UserData: dataProfile[0],
+                });
+
+                document.cookie = 'UserKerjain' + "=" + ( valueCookie );
+            } else {
+                let valueCookie = JSON.stringify({
+                    LoginState: false,
+                    UserData: {
+                        username: 'no user',
+                    },
+                });
+            }
+        };
+    }
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    // Login On Click
+    $('#login-button').on('click', function() {
+        let username = $('#username-value').val();
+        let password = $('#password-value').val();
+
+        getData(username, password);
+
+        let cookie = getCookie('UserKerjain');
+        console.log(JSON.parse(cookie))
+    })
+
+    let cookie = JSON.parse(getCookie('UserKerjain'));
+
+    if ( cookie.LoginState == true ) {
+        console.log('here logged in')
+        $('.account-btns').css('display', 'none !important')
+        $('.btns-profiles-sec').html(`
+            <span><img src="images/resource/profile.jpg" alt="" />`+ cookie.UserData.username +`<i class="la la-angle-down"></i></span>
+            <ul>
+                <li><a href="employer_profile.html" title=""><i class="la la-file-text"></i>Profil Perusahaan</a></li>
+                <li><a href="employer_manage_jobs.html" title=""><i class="la la-briefcase"></i>Kelola Pekerjaan</a></li>
+                <li><a href="employer_transactions.html" title=""><i class="la la-money"></i>Transaksi</a></li>
+                <li><a href="employer_resume.html" title=""><i class="la la-paper-plane"></i>Resume</a></li>
+                <li><a href="employer_packages.html" title=""><i class="la la-user"></i>Paket</a></li>
+                <li><a href="employer_post_new.html" title=""><i class="la la-file-text"></i>Posting Pekerjaan Baru</a></li>
+                <li><a href="employer_job_alert.html" title=""><i class="la la-flash"></i>Notifikasi Pekerjaan</a></li>
+                <li><a href="employer_change_password.html" title=""><i class="la la-lock"></i>Ubah Password</a></li>
+                <li><a href="#" title=""><i class="la la-unlink"></i>Keluar</a></li>
+            </ul>
+        `)
+        $('#username').html()
+    } else {
+        console.log('no user')
+        $('.account-btns').css('display', 'none !important')
+        $('#username').html(cookie.UserData.username)
+    }
+    
+    console.log(cookie)
+
+    
+</script>
 
 </body>
 </html>
